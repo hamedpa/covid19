@@ -1,10 +1,14 @@
-from flask import Flask
+from typing import Optional
 
-app = Flask(__name__)
+from fastapi import FastAPI
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
 
-if __name__ == "__main__":
-    app.run()
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Optional[str] = None):
+    return {"item_id": item_id, "q": q}
