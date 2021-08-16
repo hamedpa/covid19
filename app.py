@@ -26,15 +26,15 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# @app.route("/")
-# def hello_world():
-#     return '<p>Hello, World!</p><img class="logo" src="../_static/flask-icon.png" alt="Logo">'
+@app.route("/")
+def hello_world():
+    return '<p>Hello, World!</p><img class="logo" src="../_static/flask-icon.png" alt="Logo">'
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=[ 'POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
