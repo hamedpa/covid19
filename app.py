@@ -9,7 +9,7 @@ import tensorflow as tf
 import numpy as np
 
 CATEGORIES = ["covid", "normal"]
-
+#
 def prepare(filepath):
     IMG_SIZE = 70
     img_array = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
