@@ -20,7 +20,7 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
 
-UPLOAD_FOLDER = './uploads_cnn'
+UPLOAD_FOLDER = 'uploads_cnn'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
