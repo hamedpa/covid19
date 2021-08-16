@@ -7,8 +7,6 @@ import json
 import cv2
 import tensorflow as tf
 import numpy as np
-from PIL import Image
-import sys 
 
 CATEGORIES = ["covid", "normal"]
 
