@@ -7,7 +7,14 @@ import json
 import cv2
 import tensorflow as tf
 import numpy as np
+app = Flask(__name__)
 
+@app.route("/")
+def hello_world():
+    return '<p>Hello, World!</p><img class="logo" src="../_static/flask-icon.png" alt="Logo">'
+
+    
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CATEGORIES = ["covid", "normal"]
 #
 def prepare(filepath):
@@ -23,12 +30,7 @@ def prepare(filepath):
 UPLOAD_FOLDER = 'uploads_cnn'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route("/")
-def hello_world():
-    return '<p>Hello, World!</p><img class="logo" src="../_static/flask-icon.png" alt="Logo">'
 
 def allowed_file(filename):
     return '.' in filename and \
