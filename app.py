@@ -11,7 +11,16 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = './uploads_cnn'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+CATEGORIES = ["covid", "normal"]
 
+def prepare(filepath):
+    IMG_SIZE = 70
+    img_array = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
+    ret,thresh1 = cv2.threshold(img_array,85,255,cv2.THRESH_BINARY)
+    thresh1 = thresh1/255.0
+
+    new_array = cv2.resize(thresh1, (IMG_SIZE, IMG_SIZE))
+    return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
 
 def allowed_file(filename):
@@ -47,7 +56,7 @@ def upload_file():
             print(result1)
             print(result2)
 
-            return json.dumps({'result':str(filename)}), 200, {'ContentType':'application/json'}  
+            return json.dumps({'result':str(result2)}), 200, {'ContentType':'application/json'}  
     return '''
     <!doctype html>
     <title>Upload new File</title>
