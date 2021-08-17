@@ -50,8 +50,8 @@ def upload_file():
             img_tensor =[prepare('uploads_cnn/'+filename)]
 
             prediction = np.argmax(model.predict(img_tensor), axis=-1)
-            classP = model.predict_classes(img_tensor)[0][0]
-            result1 = (prediction*100 , classP) 
+            # classP = model.predict_classes(img_tensor)[0][0]
+            # result1 = (prediction*100 , classP) 
             result2 = (CATEGORIES[int(prediction)])
             print(result1)
             print(result2)
