@@ -7,30 +7,24 @@ import json
 import cv2
 import tensorflow as tf
 import numpy as np
-  
-from flask import Flask
-
 app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
     return '<p>Hello, World!</p><img class="logo" src="../_static/flask-icon.png" alt="Logo">'
 
-
-if __name__ == "__main__":
-    app.run()
     
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-CATEGORIES = ["covid", "normal"]
-#
-def prepare(filepath):
-    IMG_SIZE = 70
-    img_array = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
-    ret,thresh1 = cv2.threshold(img_array,85,255,cv2.THRESH_BINARY)
-    thresh1 = thresh1/255.0
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# CATEGORIES = ["covid", "normal"]
+# #
+# def prepare(filepath):
+#     IMG_SIZE = 70
+#     img_array = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
+#     ret,thresh1 = cv2.threshold(img_array,85,255,cv2.THRESH_BINARY)
+#     thresh1 = thresh1/255.0
 
-    new_array = cv2.resize(thresh1, (IMG_SIZE, IMG_SIZE))
-    return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 1)
+#     new_array = cv2.resize(thresh1, (IMG_SIZE, IMG_SIZE))
+#     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
 
 UPLOAD_FOLDER = 'uploads_cnn'
@@ -61,17 +55,17 @@ def upload_file():
 
 
             
-            model = tf.keras.models.load_model("Final_Model")
-            img_tensor =[prepare('uploads_cnn/'+filename)]
+            # model = tf.keras.models.load_model("Final_Model")
+            # img_tensor =[prepare('uploads_cnn/'+filename)]
 
-            prediction = np.argmax(model.predict(img_tensor), axis=-1)
-            classP = model.predict_classes(img_tensor)[0][0]
-            result1 = (prediction*100 , classP) 
-            result2 = (CATEGORIES[int(prediction)])
-            print(result1)
-            print(result2)
+            # prediction = np.argmax(model.predict(img_tensor), axis=-1)
+            # classP = model.predict_classes(img_tensor)[0][0]
+            # result1 = (prediction*100 , classP) 
+            # result2 = (CATEGORIES[int(prediction)])
+            # print(result1)
+            # print(result2)
 
-            return json.dumps({'result':str(result2)}), 200, {'ContentType':'application/json'}  
+            return json.dumps({'result':str(filename)}), 200, {'ContentType':'application/json'}  
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -81,3 +75,6 @@ def upload_file():
       <input type=submit value=Upload>
     </form>
     '''
+
+if __name__ == "__main__":
+    app.run()
