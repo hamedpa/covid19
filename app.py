@@ -1,10 +1,12 @@
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import json
+import os
+
 app = Flask(__name__)
 
 
-UPLOAD_FOLDER = 'uploads_cnn'
+UPLOAD_FOLDER = './uploads_cnn'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 
@@ -28,7 +30,7 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join('uploads_cnn/', filename))
 
 
             
