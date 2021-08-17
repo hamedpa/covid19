@@ -7,12 +7,18 @@ import json
 import cv2
 import tensorflow as tf
 import numpy as np
+  
+from flask import Flask
+
 app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
     return '<p>Hello, World!</p><img class="logo" src="../_static/flask-icon.png" alt="Logo">'
 
+
+if __name__ == "__main__":
+    app.run()
     
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CATEGORIES = ["covid", "normal"]
@@ -75,6 +81,3 @@ def upload_file():
       <input type=submit value=Upload>
     </form>
     '''
-
-if __name__ == "__main__":
-    app.run()
