@@ -53,7 +53,7 @@ def upload_file():
             # classP = model.predict_classes(img_tensor)[0][0]
             # result1 = (prediction*100 , classP) 
             result2 = (CATEGORIES[int(prediction)])
-            print(result1)
+            # print(result1)
             print(result2)
 
             return json.dumps({'result':str(result2)}), 200, {'ContentType':'application/json'}  
