@@ -3,6 +3,9 @@ from werkzeug.utils import secure_filename
 import json
 import os
 
+import cv2
+import tensorflow as tf
+import numpy as np
 app = Flask(__name__)
 
 
@@ -34,15 +37,15 @@ def upload_file():
 
 
             
-            # model = tf.keras.models.load_model("Final_Model")
-            # img_tensor =[prepare('uploads_cnn/'+filename)]
+            model = tf.keras.models.load_model("Final_Model")
+            img_tensor =[prepare('uploads_cnn/'+filename)]
 
-            # prediction = np.argmax(model.predict(img_tensor), axis=-1)
-            # classP = model.predict_classes(img_tensor)[0][0]
-            # result1 = (prediction*100 , classP) 
-            # result2 = (CATEGORIES[int(prediction)])
-            # print(result1)
-            # print(result2)
+            prediction = np.argmax(model.predict(img_tensor), axis=-1)
+            classP = model.predict_classes(img_tensor)[0][0]
+            result1 = (prediction*100 , classP) 
+            result2 = (CATEGORIES[int(prediction)])
+            print(result1)
+            print(result2)
 
             return json.dumps({'result':str(filename)}), 200, {'ContentType':'application/json'}  
     return '''
